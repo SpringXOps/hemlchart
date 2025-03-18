@@ -21,3 +21,10 @@ To deploy the Spring Boot application in the `prod` environment:
 
 ```bash
 helm install spring-app-prod ./spring-app -f values-prod.yaml --namespace prod --create-namespace
+
+
+### Development Environment
+To deploy the Spring Boot application in the `dev` environment:
+
+```bash
+helm install spring-app-dev ./spring-app -f values-dev.yaml --namespace dev --create-namespace
