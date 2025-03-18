@@ -11,7 +11,7 @@ This Helm chart deploys a Spring Boot application with a managed PostgreSQL data
 
 ## Project Structure
 
-![Project Structure](./Screenshot 2025-03-18 at 11.18.41 in the morning.png "Spring Boot Helm Chart Structure")
+![Project Structure](./test.png "Spring Boot Helm Chart Structure")
 
 ## Deploy with Helm
 
