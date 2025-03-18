@@ -1,0 +1,22 @@
+{{- if .Values.service.type | eq "LoadBalancer" }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "spring-app.fullname" . }}
+  labels:
+    {{- include "spring-app.labels" . | nindent 4 }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: "myapp.com"  # Replace with your domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "spring-app.fullname" . }}
+                port:
+                  number: {{ .Values.service.port }}
+{{- end }}

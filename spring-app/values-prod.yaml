@@ -1,0 +1,37 @@
+replicaCount: 3  # Higher availability
+
+image:
+  tag: "prod-1.0.0"
+
+env:
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-service:5432/appdb-prod"
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "validate"  # For prod: only validate schema
+
+resources:
+  limits:
+    cpu: "1.0"
+    memory: "1024Mi"
+  requests:
+    cpu: "0.5"
+    memory: "512Mi"
+
+postgres:
+  resources:
+    limits:
+      cpu: "1.0"
+      memory: "1024Mi"
+    requests:
+      cpu: "0.5"
+      memory: "512Mi"
+  storage:
+    size: "10Gi"  # Larger storage for prod
+  credentials:
+    database: "appdb-prod"
+
+service:
+  type: LoadBalancer  # Expose externally in prod
+
+cors:
+  allowOrigins:
+    - "https://myapp.com"
+    - "https://www.myapp.com"

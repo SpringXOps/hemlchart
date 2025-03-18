@@ -1,0 +1,16 @@
+{{- if .Values.postgres.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  labels:
+    {{- include "spring-app.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ include "spring-app.name" . }}-postgres
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}

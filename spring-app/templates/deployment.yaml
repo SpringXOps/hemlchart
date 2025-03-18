@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "spring-app.fullname" . }}
+  labels:
+    {{- include "spring-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "spring-app.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "spring-app.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: {{ .Values.env.SPRING_DATASOURCE_URL | quote }}
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.postgres.credentials.username | quote }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.postgres.credentials.password | quote }}
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: {{ .Values.env.SPRING_JPA_HIBERNATE_DDL_AUTO | quote }}
+            - name: ALLOWED_ORIGINS
+              value: {{ join "," .Values.cors.allowOrigins | quote }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health  # Spring Boot Actuator health endpoint
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 10

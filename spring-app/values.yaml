@@ -1,0 +1,49 @@
+replicaCount: 1
+
+image:
+  repository: spring-app
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080  # Default Spring Boot port
+
+env:
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-service:5432/appdb"
+  SPRING_DATASOURCE_USERNAME: "appuser"
+  SPRING_DATASOURCE_PASSWORD: "apppass"
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+
+resources:
+  limits:
+    cpu: "0.5"
+    memory: "512Mi"
+  requests:
+    cpu: "0.2"
+    memory: "256Mi"
+
+postgres:
+  enabled: true
+  image:
+    repository: postgres
+    tag: "15"
+    pullPolicy: IfNotPresent
+  resources:
+    limits:
+      cpu: "0.5"
+      memory: "512Mi"
+    requests:
+      cpu: "0.2"
+      memory: "256Mi"
+  storage:
+    size: "1Gi"
+  credentials:
+    username: "appuser"
+    password: "apppass"
+    database: "appdb"
+
+cors:
+  allowOrigins:
+    - "http://localhost:5173"
+    - "http://localhost:5174"
