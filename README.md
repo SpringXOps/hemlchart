@@ -10,19 +10,20 @@ This Helm chart deploys a Spring Boot application with a managed PostgreSQL data
 - Access to a container registry (e.g., Docker Hub)
 
 ## Directory Structure
+## Directory Structure
 spring-app/
-├── Chart.yaml          # Chart metadata
-├── values.yaml         # Default configuration values
-├── values-dev.yaml     # Development environment overrides
-├── values-prod.yaml    # Production environment overrides
-├── templates/          # Kubernetes resource templates
-│   ├── deployment.yaml       # Spring Boot app deployment
-│   ├── service.yaml          # Spring Boot app service
-│   ├── ingress.yaml          # Optional ingress for external access
-│   ├── postgres-deployment.yaml  # PostgreSQL deployment
-│   ├── postgres-service.yaml     # PostgreSQL service
-│   └── _helpers.tpl          # Helper templates
-├── README.md           # This file
+├── Chart.yaml                   # Chart metadata
+├── values.yaml                  # Default configuration values
+├── values-dev.yaml              # Development environment overrides
+├── values-prod.yaml             # Production environment overrides
+├── templates/                   # Kubernetes resource templates
+│   ├── deployment.yaml          # Spring Boot app deployment
+│   ├── service.yaml             # Spring Boot app service
+│   ├── ingress.yaml             # Optional ingress for external access
+│   ├── postgres-deployment.yaml # PostgreSQL deployment
+│   ├── postgres-service.yaml    # PostgreSQL service
+│   └── _helpers.tpl             # Helper templates
+├── README.md                    # This file
 
 
 ## Deploy with Helm
