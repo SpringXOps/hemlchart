@@ -10,7 +10,6 @@ This Helm chart deploys a Spring Boot application with a managed PostgreSQL data
 - Access to a container registry (e.g., Docker Hub)
 
 ## Directory Structure
-## Directory Structure
 spring-app/
 ├── Chart.yaml                   # Chart metadata
 ├── values.yaml                  # Default configuration values
@@ -24,7 +23,6 @@ spring-app/
 │   ├── postgres-service.yaml    # PostgreSQL service
 │   └── _helpers.tpl             # Helper templates
 ├── README.md                    # This file
-
 
 ## Deploy with Helm
 
